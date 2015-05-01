@@ -1,6 +1,6 @@
-/*Starlight.js: Sparkling Visual Effects
+/*Starlight.js: A sparkling visual effects library
 Created by Serj Babayan
-View on Github at http://www.github.com/sergei1152/Starlight.js
+View on Github at https://www.github.com/sergei1152/Starlight.js
 Licence: MIT
 */
 
@@ -14,11 +14,25 @@ var user_configuration={
 	frequency:1, //how often a new wave of stars popout
 	density: 1, //how many stars pop out per wave
 	keep_lit: false, //whether the stars dissapear after they are created
-	rotation: false //whether the stars rotate through out their expansion
-	coverage:100 //how much of the element (in percent) the stars will show up in
+	rotation: false, //whether the stars rotate through out their expansion
+	coverage:100, //how much of the element (in percent) the stars will show up in
+	target_class:'.starlight' //the elements the script will target based on the class name
 };
 
+//the star object
+function Star(xlength,ylength){
 
+}
+Star.prototype.create=function(){
+
+}
 $(document).ready(function(){
 
+	//traverses all of the elements with a class of 'starlight'
+	$(user_configuration.target_class).each(function(index){
+		var width=$(this).width();
+		var height=$(this).height();
+		
+
+	});
 });
