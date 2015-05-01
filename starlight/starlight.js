@@ -12,17 +12,19 @@ var user_configuration={
 	expand_speed:1000, //how fast the stars get bigger, in milliseconds
 	colors:["red"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
 	frequency:1000, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
-	density: 10,//how many stars pop out per wave
+	density: 100,//how many stars pop out per wave
 	keep_lit: false, //whether the stars dissapear after they are created
 	rotation: false, //whether the stars rotate through out their expansion
-	coverage:100, //how much of the element (in percent) the stars will show up in
+	coverage:0.95, //how much of the element (in percent) the stars will show up in (0-1)
 	target_class:'.starlight' //the elements the script will target based on the class name
 };
 
 //the star object
 function Star(width,height){
-	this.xposition=Math.round(Math.random()*width);
-	this.yposition=Math.round(Math.random()*width);
+	widthOffset=Math.round(width-Math.round(width*user_configuration.coverage))/2;
+	heightOffset=Math.round(height-Math.round(height*user_configuration.coverage))/2;
+	this.xposition=Math.floor(Math.random()*width*user_configuration.coverage)+widthOffset;
+	this.yposition=Math.floor(Math.random()*height*user_configuration.coverage)+heightOffset;
 
 }
 Star.prototype.create=function(parent_element){
@@ -31,7 +33,7 @@ Star.prototype.create=function(parent_element){
 		width:user_configuration.initial_size,
 		height:user_configuration.initial_size,
 		'background-color':"red",
-		position:'relative',
+		position:'absolute',
 		top:this.yposition,
 		left:this.xposition
 	});
