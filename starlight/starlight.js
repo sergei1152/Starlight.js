@@ -12,7 +12,7 @@ var user_configuration={
 	expand_speed:1000, //how fast the stars get bigger, in milliseconds
 	colors:["red"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
 	frequency:1000, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
-	density: 100,//how many stars pop out per wave
+	density: 10,//how many stars pop out per wave
 	keep_lit: false, //whether the stars dissapear after they are created
 	rotation: false, //whether the stars rotate through out their expansion
 	coverage:0.95, //how much of the element (in percent) the stars will show up in (0-1)
@@ -21,11 +21,10 @@ var user_configuration={
 
 //the star object
 function Star(width,height){
-	widthOffset=Math.round(width-Math.round(width*user_configuration.coverage))/2;
-	heightOffset=Math.round(height-Math.round(height*user_configuration.coverage))/2;
+	widthOffset=(width-Math.round(width*user_configuration.coverage))/2;
+	heightOffset=(height-Math.round(height*user_configuration.coverage))/2;
 	this.xposition=Math.floor(Math.random()*width*user_configuration.coverage)+widthOffset;
 	this.yposition=Math.floor(Math.random()*height*user_configuration.coverage)+heightOffset;
-
 }
 Star.prototype.create=function(parent_element){
 	var star=$('<div></div>');
@@ -37,6 +36,9 @@ Star.prototype.create=function(parent_element){
 		top:this.yposition,
 		left:this.xposition
 	});
+	if(user_configuration.shape==='circle'){
+		star.css('border-radius','50%');
+	}
 	parent_element.append(star);
 }
 $(document).ready(function(){

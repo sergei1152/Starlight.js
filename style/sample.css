@@ -3,8 +3,10 @@
 	height: 500px;
 	background-color:grey;
 	position:relative;
+	padding:0;
+	margin:0;
 }
 .starlight-star{
 	position:relative;
-
+	
 }
