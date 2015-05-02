@@ -10,9 +10,9 @@ var user_configuration={
 	initial_size:"12px", //initial size of the stars
 	final_size:"24px", //final size of the stars after expansion
 	expand_speed:1000, //how fast the stars get bigger, in milliseconds
-	colors:["red","green","blue","black","white","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
+	colors:["red","green","blue","black","#FFFFFF","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
 	frequency:1000, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
-	density: 10,//how many stars pop out per wave
+	density: 100,//how many stars pop out per wave
 	keep_lit: false, //whether the stars dissapear after they are created
 	rotation: false, //whether the stars rotate through out their expansion
 	coverage:0.95, //how much of the element's area the stars will show up in (0-1)
@@ -27,6 +27,7 @@ function Star(width,height){
 	this.xposition=Math.floor(Math.random()*width*user_configuration.coverage)+widthOffset;
 	this.yposition=Math.floor(Math.random()*height*user_configuration.coverage)+heightOffset;
 }
+
 Star.prototype.create=function(parent_element){
 	var star=$('<div></div>');
 	star.css({
