@@ -10,13 +10,14 @@ var user_configuration={
 	initial_size:"12px", //initial size of the stars
 	final_size:"24px", //final size of the stars after expansion
 	expand_speed:1000, //how fast the stars get bigger, in milliseconds
-	colors:["red"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
+	colors:["red","green","blue","black","white","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
 	frequency:1000, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
 	density: 10,//how many stars pop out per wave
 	keep_lit: false, //whether the stars dissapear after they are created
 	rotation: false, //whether the stars rotate through out their expansion
-	coverage:0.95, //how much of the element (in percent) the stars will show up in (0-1)
-	target_class:'.starlight' //the elements the script will target based on the class name
+	coverage:0.95, //how much of the element's area the stars will show up in (0-1)
+	target_class:'.starlight', //the elements the script will target based on the class name
+	custom_svg:"" //if you want to use a custom svg with a shape of a star instead
 };
 
 //the star object
@@ -31,7 +32,6 @@ Star.prototype.create=function(parent_element){
 	star.css({
 		width:user_configuration.initial_size,
 		height:user_configuration.initial_size,
-		'background-color':"red",
 		position:'absolute',
 		top:this.yposition,
 		left:this.xposition
@@ -39,8 +39,13 @@ Star.prototype.create=function(parent_element){
 	if(user_configuration.shape==='circle'){
 		star.css('border-radius','50%');
 	}
+	if(user_configuration.custom_svg===''){
+		star.css('background-color',user_configuration.colors[Math.floor(Math.random()*user_configuration.colors.length)]); //picks one of the colors
+	}
 	parent_element.append(star);
 }
+
+//Creates the stars over an interval
 $(document).ready(function(){
 
 	//traverses all of the elements with a class of 'starlight'
