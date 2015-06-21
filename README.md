@@ -45,7 +45,7 @@ How many stars will spawn per wave (eg `5`)
 How much of the element's area the stars will show up in (0-1 eg `0.75` will cover 75%)
 ###target_class
 Elements that the stars will spawn in. Can be any class, element, or id (eg `".starlight"`)
-###custom_svg:"" //
+###custom_svg
 Not Supported Yet: If you want to use your own SVG instead of just a circle or a square
 
 There are also more advanced settings that you can configure by modifying the `advanced_configuration` options.
