@@ -4,8 +4,8 @@ View on Github at https://www.github.com/sergei1152/Starlight.js
 Licence: MIT
 */
 
-//TODO 1: CLEANUP javascript objects and DOM after element has faded out
-//TODO 2: ADD SVG support
+//TODO 1: ADD SVG support
+//TODO 2: FIX the keep_list true and rotation false instant expand glitch
 
 //put your custom configuration settings here
 var user_configuration={
@@ -16,10 +16,10 @@ var user_configuration={
 	fade_delay:"0.5s", //how long until the star fades out (in milliseconds)
 	fade_duration:"0.5s", //how long the star fades for
 	colors:["red","green","blue","black","#FFFFFF","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
-	frequency:500, //how often a new wave of stars pop-out (in milliseconds. Bigger==longer)
+	frequency:50, //how often a new wave of stars pop-out (in milliseconds. Bigger==longer)
 	density: 1,//how many stars pop out per wave
 	keep_lit: false, //whether the stars disappear after they are created
-	rotation: true, //whether the stars rotate through out their expansion
+	rotation: false, //whether the stars rotate through out their expansion
 	coverage:0.95, //how much of the element's area the stars will show up in (0-1)
 	target_class:'.starlight', //the elements the script will target based on the class name
 	custom_svg:"" //if you want to use a custom svg with a shape of a star instead (not supported yet)
@@ -136,8 +136,8 @@ $(document).ready(function(){
 			for(var i=0;i<user_configuration.density;i++){
 				var newStar=new Star(width,height);
 				newStar.create(currentElement,id);
+				newStar=null; //just in case so the garbage collector clears this value up
 				id++;
-				
 			}
 		},user_configuration.frequency);
 	});
