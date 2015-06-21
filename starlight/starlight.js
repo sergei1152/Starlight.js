@@ -11,16 +11,16 @@ Licence: MIT
 var user_configuration={
 	shape:"circle", //could be "circle" or "square"
 	initial_size:"12px", //initial size of the stars
-	final_size:"128px", //final size of the stars after expansion
+	final_size:"64px", //final size of the stars after expansion
 	expand_speed:"1s", //how fast the stars get bigger, in milliseconds
 	fade_delay:"0.5s", //how long until the star fades out (in milliseconds)
 	fade_duration:"0.5s", //how long the star fades for
-	colors:["red","green","blue","black","#FFFFFF","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
+	colors:["hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
 	frequency:50, //how often a new wave of stars pop-out (in milliseconds. Bigger==longer)
 	density: 1,//how many stars pop out per wave
 	keep_lit: false, //whether the stars disappear after they are created
 	rotation: false, //whether the stars rotate through out their expansion
-	coverage:0.95, //how much of the element's area the stars will show up in (0-1)
+	coverage:0.75, //how much of the element's area the stars will show up in (0-1)
 	target_class:'.starlight', //the elements the script will target based on the class name
 	custom_svg:"" //if you want to use a custom svg with a shape of a star instead (not supported yet)
 };
@@ -33,7 +33,8 @@ var advanced_configuration={
 	rotation_angle: "360deg", //up to how much to rotate to
 	rotation_duration: "1s", //how long the rotation will take place
 	rotation_delay: "0s", //how long until rotation starts
-  fade_transition_timing:"linear" //could be ease, ease-in, ease-out, etc
+  	fade_transition_timing:"linear", //could be ease, ease-in, ease-out, etc
+  	z_index:0 //the stars are absolutely positioned, so you can give them a z-index of whatever you wish
 };
 
 //the star object with its position
@@ -68,7 +69,8 @@ Star.prototype.create=function(parent_element,id){
 		height:user_configuration.initial_size,
 		position:'absolute',
 		top:this.yposition,
-		left:this.xposition
+		left:this.xposition,
+		"z-index": user_configuration.z_index
 	});
 
 	//sets transition css properties of the star
