@@ -9,20 +9,31 @@ Licence: MIT
 
 //put your custom configuration settings here
 var user_configuration={
-	shape:"square", //could also be square
+	shape:"circle", //could also be square
 	initial_size:"12px", //initial size of the stars
 	final_size:"128px", //final size of the stars after expansion
 	expand_speed:"1s", //how fast the stars get bigger, in milliseconds
-	fade_delay:500, //how long until the star fades out (in milliseconds)
+	fade_delay:"0.5s", //how long until the star fades out (in milliseconds)
 	fade_duration:"0.5s", //how long the star fades for
 	colors:["red","green","blue","black","#FFFFFF","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
-	frequency:500, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
+	frequency:500, //how often a new wave of stars pop-out (in milliseconds. Bigger==longer)
 	density: 1,//how many stars pop out per wave
-	keep_lit: true, //whether the stars dissapear after they are created
-	rotation: true, //whether the stars rotate through out their expansion
+	keep_lit: true, //whether the stars disappear after they are created
+	rotation: false, //whether the stars rotate through out their expansion
 	coverage:0.95, //how much of the element's area the stars will show up in (0-1)
 	target_class:'.starlight', //the elements the script will target based on the class name
 	custom_svg:"" //if you want to use a custom svg with a shape of a star instead (not supported yet)
+};
+
+//this is if you want to really customize how the stars appear
+var advanced_configuration={
+	expand_transition_timing: "linear", //could be ease, ease-in, ease-out, etc
+	expand_delay: "0s",  //how long until the star starts to expand
+	rotation_transition_timing: "linear",  //could be ease, ease-in, ease-out, etc
+	rotation_angle: "360deg", //up to how much to rotate to
+	rotation_duration: "1s", //how long the rotation will take place
+	rotation_delay: "0s", //how long until rotation starts
+  fade_transition_timing:"linear" //could be ease, ease-in, ease-out, etc
 };
 
 //the star object with its position
@@ -50,7 +61,7 @@ Star.prototype.create=function(parent_element){
     	height:"100%"
 	});
 
-	//the initial CSS properties of the star, including color, postition, and size
+	//the initial CSS properties of the star, including color, position, and size
 	star_container.css({
 		width:user_configuration.initial_size,
 		height:user_configuration.initial_size,
@@ -59,32 +70,44 @@ Star.prototype.create=function(parent_element){
 		left:this.xposition,
 	});
 
-	//sets expand properties of the star
+	//sets transition css properties of the star
 	setTimeout(function(){
-		star_container.css({ //the css properties of the star including ones that handle the color and transitions
-			transition: "height "+user_configuration.expand_speed+" linear ,"+
-						"width "+user_configuration.expand_speed+" linear",
+		star_container.css({ //size expand properties
+			transition: "height "+user_configuration.expand_speed+" "+advanced_configuration.expand_transition_timing+" "+advanced_configuration.expand_delay+","+
+						"width "+user_configuration.expand_speed+" "+advanced_configuration.expand_transition_timing+" "+advanced_configuration.expand_delay,
 			width:user_configuration.final_size,
-			height:user_configuration.final_size,
+			height:user_configuration.final_size
 		});
-		if(user_configuration.rotation){
-			star.css({ //the css properties of the star including ones that handle the color and transitions
-				transition:"transform 1s linear ",
-				transform: "rotate(360deg)"
-			});
-		}
-	},100);
 
-	//sets fading css properties of the star
-	if(!user_configuration.keep_lit){
-		setTimeout(function(){
-			star.css({ //the css properties of the star including ones that handle the color and transitions
-			opacity:0,
-			transition: "opacity "+user_configuration.fade_duration+" linear ",
-			});
-		},user_configuration.fade_delay);
-	}
+    //because transition properties override each other, have to create a variable for transition and append transitions on to it
+    if(user_configuration.rotation){ //rotation properties
+      star.css({
+        transform: "rotate("+advanced_configuration.rotation_angle+")"
+      });
+      var transition=advanced_configuration.rotation_duration+" "+advanced_configuration.rotation_transition_timing+" "+advanced_configuration.rotation_delay;
+    }
+
+    if(!user_configuration.keep_lit) {//fading properties
+      star.css({
+        opacity: 0
+        });
+      if(transition){
+        transition+=",opacity " + user_configuration.fade_duration + " " + advanced_configuration.fade_transition_timing + " " + user_configuration.fade_delay;
+      }
+      else {
+        var transition="opacity " + user_configuration.fade_duration + " " + advanced_configuration.fade_transition_timing + " " + user_configuration.fade_delay;
+      }
+      }
+
+    if(transition) {
+      star.css({
+        transition: transition
+      });
+    }
+
+		},10);
 	
+	//sets shape and color of the star
 	if(user_configuration.shape==='circle'){
 		star.css('border-radius','50%');
 	}
@@ -92,7 +115,7 @@ Star.prototype.create=function(parent_element){
 		star.css('background-color',user_configuration.colors[Math.floor(Math.random()*user_configuration.colors.length)]); //picks one of the colors
 	}
 	parent_element.append(star_container);
-}
+};
 
 
 //Handles the actual creation of the stars based on the frequency and density as defined by the user
@@ -106,8 +129,6 @@ $(document).ready(function(){
 			for(var i=0;i<user_configuration.density;i++){
 				var newStar=new Star(width,height);
 				newStar.create(currentElement);
-				delete newStar;
-				console.log(newStar);
 			}
 		},user_configuration.frequency);
 	});
