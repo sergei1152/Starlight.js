@@ -4,6 +4,7 @@ View on Github at https://www.github.com/sergei1152/Starlight.js
 Licence: MIT
 */
 
+//TODO Fix resizing issues
 //TODO 1: ADD SVG support
 //TODO 2: FIX the keep_list true and rotation false instant expand glitch
 
@@ -50,7 +51,7 @@ function Star(width,height){
 Star.prototype.create=function(parent_element,id){
 	//The container is there so that when the stars expand they exapand around the center
 	var star=$('<div></div>');
-	var star_container=$('<div id=\"star'+id+'\"></div>');
+	var star_container=$('<div id=\"starlight-star'+id+'\"></div>');
 	// star_container.attr("id","star"+id);
 	star_container.append(star);
 
@@ -103,7 +104,7 @@ Star.prototype.create=function(parent_element,id){
 
       	//removes the element from the dom after it fades out
 		setTimeout(function(){
-			$("#star"+id).remove();
+			$("#starlight-star"+id).remove();
 		},css_time_to_milliseconds(user_configuration.fade_duration)+css_time_to_milliseconds(user_configuration.fade_delay));
       }
 
