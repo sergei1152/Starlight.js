@@ -41,8 +41,8 @@ var advanced_configuration={
 //the star object with its position
 function Star(width,height){
 	//the offsets are required so that when a user specifies a coverage, the coverage is based around the center of the div, and not the top left
-	leftOffset=Math.round((width-width*user_configuration.coverage)/4);
-	topOffset=(height-Math.round(height*user_configuration.coverage))/4;
+	leftOffset=Math.round((width-width*user_configuration.coverage)/2);
+	topOffset=(height-Math.round(height*user_configuration.coverage))/2;
 	this.xposition=Math.floor(Math.random()*width*user_configuration.coverage)+leftOffset;
 	this.yposition=Math.floor(Math.random()*height*user_configuration.coverage)+topOffset;
 }
