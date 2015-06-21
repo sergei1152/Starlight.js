@@ -12,11 +12,11 @@ Licence: MIT
 var user_configuration={
 	shape:"circle", //could be "circle" or "square"
 	initial_size:"12px", //initial size of the stars
-	final_size:"64px", //final size of the stars after expansion
+	final_size:"32px", //final size of the stars after expansion
 	expand_speed:"1s", //how fast the stars get bigger, in milliseconds
 	fade_delay:"0.5s", //how long until the star fades out (in milliseconds)
 	fade_duration:"0.5s", //how long the star fades for
-	colors:["hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
+	colors:["hsla(62, 50%,50%, 0.5)", "rgba(255,255,255,0.5)","hsla(180, 72%, 52%, 0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
 	frequency:50, //how often a new wave of stars pop-out (in milliseconds. Bigger==longer)
 	density: 1,//how many stars pop out per wave
 	keep_lit: false, //whether the stars disappear after they are created

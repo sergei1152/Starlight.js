@@ -1,12 +1,46 @@
+html, body{
+	width: 100%;
+	height: 100%;
+	background-color: hsl(270, 10%, 10%);
+	padding:0;
+	margin:0;
+}
+h1,h2,h3,h4,h5,h6,a{
+	font-family: Arial, sans-serif;
+}
 .starlight{
-	width: 500px;
-	height: 500px;
-	background-color:grey;
+	width: 100%;
+	height: 100%;
 	position:relative;
 	padding:0;
 	margin:0;
 }
-.starlight-star{
-	position:relative;
-	
+
+.wrapper{
+	display: flex;
+	justify-content: center;
+	height: auto;
+	align-items: center;
+	flex-direction:column;
+	height:100%;
+}
+.title{
+	color:white;
+	font-size: 4em;
+	margin:0;
+	padding:0;
+}
+
+.subtitle{
+	color:hsla(0, 0%, 100%, 0.3);
+	font-size: 2em;
+	margin:0;
+	padding:0;
+}
+
+.button-wrapper{
+	margin-top: 24px;
+}
+.button{
+	margin:24px;
 }
