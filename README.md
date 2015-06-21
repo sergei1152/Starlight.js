@@ -5,6 +5,8 @@ A highly configurable javascript library for creating "twinkling star" effects. 
 every aspect of it to fit the needs of your website. You can apply the effect to more than one element as well.
 Great for banners!
 
+####Requirements: JQuery
+
 #Installation
 Download the zip and copy the `starlight.js` file from the `starlight` folder then embed in your html: 
 ```
