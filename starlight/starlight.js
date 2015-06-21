@@ -11,8 +11,8 @@ var user_configuration={
 	final_size:"24px", //final size of the stars after expansion
 	expand_speed:1000, //how fast the stars get bigger, in milliseconds
 	colors:["red","green","blue","black","#FFFFFF","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
-	frequency:1000, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
-	density: 100,//how many stars pop out per wave
+	frequency:10, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
+	density: 1000,//how many stars pop out per wave
 	keep_lit: false, //whether the stars dissapear after they are created
 	rotation: false, //whether the stars rotate through out their expansion
 	coverage:0.95, //how much of the element's area the stars will show up in (0-1)
@@ -22,10 +22,10 @@ var user_configuration={
 
 //the star object
 function Star(width,height){
-	widthOffset=(width-Math.round(width*user_configuration.coverage))/2;
-	heightOffset=(height-Math.round(height*user_configuration.coverage))/2;
-	this.xposition=Math.floor(Math.random()*width*user_configuration.coverage)+widthOffset;
-	this.yposition=Math.floor(Math.random()*height*user_configuration.coverage)+heightOffset;
+	leftOffset=Math.round((width-width*user_configuration.coverage)/4);
+	topOffset=(height-Math.round(height*user_configuration.coverage))/4;
+	this.xposition=Math.floor(Math.random()*width*user_configuration.coverage)+leftOffset;
+	this.yposition=Math.floor(Math.random()*height*user_configuration.coverage)+topOffset;
 }
 
 Star.prototype.create=function(parent_element){
@@ -46,6 +46,7 @@ Star.prototype.create=function(parent_element){
 	parent_element.append(star);
 }
 
+
 //Creates the stars over an interval
 $(document).ready(function(){
 
@@ -54,7 +55,6 @@ $(document).ready(function(){
 		var currentElement=$(this);
 		var width=currentElement.width();
 		var height=currentElement.height();
-
 		setInterval(function(){
 			for(var i=0;i<user_configuration.density;i++){
 				var newStar=new Star(width,height);
