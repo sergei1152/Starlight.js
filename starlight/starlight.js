@@ -9,7 +9,7 @@ Licence: MIT
 
 //put your custom configuration settings here
 var user_configuration={
-	shape:"circle", //could also be square
+	shape:"circle", //could be "circle" or "square"
 	initial_size:"12px", //initial size of the stars
 	final_size:"128px", //final size of the stars after expansion
 	expand_speed:"1s", //how fast the stars get bigger, in milliseconds
@@ -18,8 +18,8 @@ var user_configuration={
 	colors:["red","green","blue","black","#FFFFFF","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
 	frequency:500, //how often a new wave of stars pop-out (in milliseconds. Bigger==longer)
 	density: 1,//how many stars pop out per wave
-	keep_lit: true, //whether the stars disappear after they are created
-	rotation: false, //whether the stars rotate through out their expansion
+	keep_lit: false, //whether the stars disappear after they are created
+	rotation: true, //whether the stars rotate through out their expansion
 	coverage:0.95, //how much of the element's area the stars will show up in (0-1)
 	target_class:'.starlight', //the elements the script will target based on the class name
 	custom_svg:"" //if you want to use a custom svg with a shape of a star instead (not supported yet)
@@ -46,10 +46,11 @@ function Star(width,height){
 }
 
 //the star CSS properties
-Star.prototype.create=function(parent_element){
+Star.prototype.create=function(parent_element,id){
 	//The container is there so that when the stars expand they exapand around the center
-	var star_container=$('<div></div>');
 	var star=$('<div></div>');
+	var star_container=$('<div id=\"star'+id+'\"></div>');
+	// star_container.attr("id","star"+id);
 	star_container.append(star);
 
 	//so the star stays centered as its container expands
@@ -67,7 +68,7 @@ Star.prototype.create=function(parent_element){
 		height:user_configuration.initial_size,
 		position:'absolute',
 		top:this.yposition,
-		left:this.xposition,
+		left:this.xposition
 	});
 
 	//sets transition css properties of the star
@@ -97,6 +98,11 @@ Star.prototype.create=function(parent_element){
       else {
         var transition="opacity " + user_configuration.fade_duration + " " + advanced_configuration.fade_transition_timing + " " + user_configuration.fade_delay;
       }
+
+      	//removes the element from the dom after it fades out
+		setTimeout(function(){
+			$("#star"+id).remove();
+		},css_time_to_milliseconds(user_configuration.fade_duration)+css_time_to_milliseconds(user_configuration.fade_delay));
       }
 
     if(transition) {
@@ -120,6 +126,7 @@ Star.prototype.create=function(parent_element){
 
 //Handles the actual creation of the stars based on the frequency and density as defined by the user
 $(document).ready(function(){
+	var id=0;
 	//traverses all of the elements with a class of 'starlight'
 	$(user_configuration.target_class).each(function(index){
 		var currentElement=$(this);
@@ -128,8 +135,35 @@ $(document).ready(function(){
 		setInterval(function(){ //creates the stars based on the frequency and desired density
 			for(var i=0;i<user_configuration.density;i++){
 				var newStar=new Star(width,height);
-				newStar.create(currentElement);
+				newStar.create(currentElement,id);
+				id++;
+				
 			}
 		},user_configuration.frequency);
 	});
 });
+
+//retrieved from https://gist.github.com/jakebellacera/9261266
+function css_time_to_milliseconds(time_string) {
+  var num = parseFloat(time_string, 10),
+      unit = time_string.match(/m?s/),
+      milliseconds;
+ 
+  if (unit) {
+    unit = unit[0];
+  }
+ 
+  switch (unit) {
+    case "s": // seconds
+      milliseconds = num * 1000;
+      break;
+    case "ms": // milliseconds
+      milliseconds = num;
+      break;
+    default:
+      milliseconds = 0;
+      break;
+  }
+ 
+  return milliseconds;
+}
