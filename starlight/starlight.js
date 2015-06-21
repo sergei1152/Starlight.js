@@ -10,9 +10,11 @@ var user_configuration={
 	initial_size:"12px", //initial size of the stars
 	final_size:"24px", //final size of the stars after expansion
 	expand_speed:1000, //how fast the stars get bigger, in milliseconds
+	fade_delay:1000, //how long until the star fades out (in milliseconds)
+	fade_duration:"1s", //how long the star fades for
 	colors:["red","green","blue","black","#FFFFFF","hsl(180, 62%, 49%)","rgba(75, 41, 89,0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
-	frequency:10, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
-	density: 1000,//how many stars pop out per wave
+	frequency:1000, //how often a new wave of stars popout (in milliseconds. Bigger==longer)
+	density: 1,//how many stars pop out per wave
 	keep_lit: false, //whether the stars dissapear after they are created
 	rotation: false, //whether the stars rotate through out their expansion
 	coverage:0.95, //how much of the element's area the stars will show up in (0-1)
@@ -28,15 +30,25 @@ function Star(width,height){
 	this.yposition=Math.floor(Math.random()*height*user_configuration.coverage)+topOffset;
 }
 
+//handles the star objects css properties, including custom ones from above
 Star.prototype.create=function(parent_element){
 	var star=$('<div></div>');
-	star.css({
+	star.css({ //the css properties of the star including ones that handle the color and transitions
 		width:user_configuration.initial_size,
 		height:user_configuration.initial_size,
 		position:'absolute',
 		top:this.yposition,
-		left:this.xposition
+		left:this.xposition,
 	});
+
+	//sets fade out css properties of the star
+	setTimeout(function(){
+		star.css({ //the css properties of the star including ones that handle the color and transitions
+		opacity:0,
+		transition: "opacity "+user_configuration.fade_duration+" linear ",
+		});
+	},user_configuration.fade_delay);
+
 	if(user_configuration.shape==='circle'){
 		star.css('border-radius','50%');
 	}
@@ -44,12 +56,13 @@ Star.prototype.create=function(parent_element){
 		star.css('background-color',user_configuration.colors[Math.floor(Math.random()*user_configuration.colors.length)]); //picks one of the colors
 	}
 	parent_element.append(star);
+	
+	
 }
 
 
-//Creates the stars over an interval
+//Handles the actual creation of the stars based on the frequency and density as defined by the user
 $(document).ready(function(){
-
 	//traverses all of the elements with a class of 'starlight'
 	$(user_configuration.target_class).each(function(index){
 		var currentElement=$(this);
