@@ -10,7 +10,7 @@ Great for banners!
 #Installation
 Download the zip and copy the `starlight.js` file from the `starlight` folder then embed in your html: 
 ```
-	<link rel="stylesheet" href="style/sample.css">
+	<script src="starlight/starlight.js"></script>
 
 	<div class=".starlight"></div>
 ```
