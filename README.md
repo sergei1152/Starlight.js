@@ -12,7 +12,7 @@ Download the zip and copy the `starlight.js` file from the `starlight` folder th
 ```
 	<script src="starlight/starlight.js"></script>
 
-	<div class=".starlight"></div>
+	<div class="starlight"></div>
 ```
 
 #Customization
