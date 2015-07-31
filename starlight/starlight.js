@@ -10,18 +10,18 @@ Licence: MIT
 
 //put your custom configuration settings here
 var user_configuration={
-	shape:"circle", //could be "circle" or "square"
+	shape:"square", //could be "circle" or "square"
 	initial_size:"12px", //initial size of the stars
-	final_size:"128px", //final size of the stars after expansion
+	final_size:"64px", //final size of the stars after expansion
 	expand_speed:"1s", //how fast the stars get bigger, in milliseconds
 	fade_delay:"0.5s", //how long until the star fades out
 	fade_duration:"0.5s", //how long the star fades for
 	colors:["hsla(62, 50%,50%, 0.5)", "rgba(255,255,255,0.5)","hsla(180, 72%, 52%, 0.5)"], //The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)
-	frequency:150, //how often a new wave of stars pop-out (in milliseconds. Bigger==longer)
+	frequency:100, //how often a new wave of stars pop-out (in milliseconds. Bigger==longer)
 	density: 1,//how many stars pop out per wave
 	keep_lit: false, //whether the stars disappear after they are created
-	rotation: false, //whether the stars rotate through out their expansion
-	coverage:0.75, //how much of the element's area the stars will show up in (0-1)
+	rotation: true, //whether the stars rotate through out their expansion
+	coverage:1, //how much of the element's area the stars will show up in (0-1)
 	target_class:'.starlight', //the elements the script will target based on the class name
 	custom_svg:"" //if you want to use a custom svg with a shape of a star instead (not supported yet)
 };
@@ -71,7 +71,7 @@ Star.prototype.create=function(parent_element,id){
 		position:'absolute',
 		top:this.yposition,
 		left:this.xposition,
-		"z-index": user_configuration.z_index
+		"z-index": advanced_configuration.z_index
 	});
 
 	//sets transition css properties of the star
