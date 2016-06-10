@@ -7,51 +7,43 @@ Great for banners!
 
 ####Requirements: JQuery
 
-#Installation
-Download the zip and copy the `starlight.js` file from the `starlight` folder then embed in your html: 
-```
-	<script src="starlight/starlight.js"></script>
-
-	<div class="starlight"></div>
+# Installation
+Download the zip and copy the `starlight.js` file from the `starlight` folder then include the script in the document head:
+```html
+<script src="starlight/starlight.js"></script>
 ```
 
-#Customization
-Customizing the libary is very easy. Just edit the `user_configuration` options in the 
-`starlight.js` file.
+# Usage
+```js
+  $('.starlight').starlight(options);
+```
 
-The options available are listed here:
+`'.starlight'` is the identifier of the element you want to add the star field to. Options is an optional javascript object with parameters explained below:
 
-###shape
-Could be either `"circle"` or `"square"`
-###initial_size
-The starting size of the stars when they spawn (eg `"32px"`)
-###final_size
-The final size of the stars after expansion. Could also be the same as initial size if you don't want the stars to expand (eg `"64px"`)
-###expand_speed
-How long the stars take to expand/shrink (in CSS time. eg `"1s"`)
-###fade_delay
-The delay until the stars begin to fade out (in CSS time. eg `"1s"`)
-###fade_duration
-How long the star will take to fade out (in CSS time. eg `"0.5s"`)
-###colors
-Possible colors of the stars, each of which will be randomly chosen during spawning.  Can be any CSS complient color (eg. `"rgba(255,255,255,0.5)"`)
-###frequency
-Delay between star spawns in milliseconds(eg. `250`)
-###density
-How many stars will spawn per wave (eg `5`)
-###keep_lit
-`true` or `false`: Whether the stars will fade out
-###rotation
-`true` or `false` : Whether the stars will rotate
-###coverage
-How much of the element's area the stars will show up in (0-1 eg `0.75` will cover 75%)
-###target_class
-Elements that the stars will spawn in. Can be any class, element, or id (eg `".starlight"`)
-###custom_svg
-Not Supported Yet: If you want to use your own SVG instead of just a circle or a square
-
-There are also more advanced settings that you can configure by modifying the `advanced_configuration` options.
-Changing these settings isn't really necessary unless you don't like how some of the transitions play.
+# Options
+|Option|Type|Default|Description|
+|---|---|---|---|
+|shape|string|'square'|Could be either `"circle"` or `"square"`|
+|initial_size|string|'12px'|initial size of the stars|
+|final_size|string|'64px'|final size of the stars after expansion|
+|expand_speed|string|'1s'|how fast the stars get bigger, in milliseconds|
+|fade_delay|string|'0.5s'|how long until the star fades out|
+|fade_duration|string|'0.5s'|how long the star fades for|
+|colors|array|["hsla(62, 50%,50%, 0.5)", "rgba(255,255,255,0.5)","hsla(180, 72%, 52%, 0.5)"]|The variety of colors of the stars. Can be any CSS complient color (eg. HEX, rgba, hsl)|
+|frequency|integer|100|how often a new wave of stars pop-out (in milliseconds. Bigger==longer)|
+|density|integer|1|how many stars pop out per wave|
+|keep_lit|boolean|false|whether the stars disappear after they are created|
+|rotation|boolean|true|whether the stars rotate through out their expansion|
+|coverage|integer|1|how much of the element's area the stars will show up in (0-1 e.g. `0.75` will cover 75%)|
+|custom_svg|string|""|if you want to use a custom svg with a shape of a star instead (not supported yet)|
+|expand_transition_timing|string|"linear"|could be ease, ease-in, ease-out, etc|
+|expand_delay|string|"0s"|how long until the star starts to expand|
+|rotation_transition_timing|string|"linear"|could be ease, ease-in, ease-out, etc|
+|rotation_angle|string|"360deg"|up to how much to rotate to|
+|rotation_duration|string|"1s"|how long the rotation will take place|
+|rotation_delay|string|"0s"|how long until rotation starts|
+|fade_transition_timing|string|"linear"|could be ease, ease-in, ease-out, etc|
+|z_index|integer|0|CSS z-index of star|
 
 #Licence
 [MIT](https://raw.githubusercontent.com/sergei1152/Starlight.js/master/LICENCE)
