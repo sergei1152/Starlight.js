@@ -9,8 +9,8 @@ Great for banners!
 
 # Installation
 Download the zip and copy the `starlight.js` file from the `starlight` folder then include the script in the document head:
-```
-	<script src="starlight/starlight.js"></script>
+```html
+<script src="starlight/starlight.js"></script>
 ```
 
 # Usage
